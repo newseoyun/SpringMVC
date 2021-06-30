@@ -16,7 +16,7 @@ public class LogTestController {
     public String logTest() {
         String name = "Spring";
 
-        System.out.println("name = " + name);
+        System.out.println("name = " + name); // 성능 상 (버퍼, 멀티스레드 등) 로거를 쓰는 것이 훨씬 낫다.
         log.trace("trace log={}", name);
         log.debug("debug log={}", name);
         log.info (" info log={}", name);
