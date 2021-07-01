@@ -1,7 +1,10 @@
 package hello.springmvc.basic.request;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
-@RestController
+@Controller
 public class RequestParamController {
 
     @RequestMapping("/request-param-v1")
@@ -21,4 +24,53 @@ public class RequestParamController {
 
         response.getWriter().write("ok");
     }
+
+    @ResponseBody
+    @RequestMapping("/request-param-v2")
+    public String requestParamV2(
+            @RequestParam("username") String memberName,
+            @RequestParam("age") int memberAge) {
+        log.info("memberName={}, memberAge={}", memberName, memberAge);
+
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-v3")
+    public String requestParamV3(
+            @RequestParam String username,
+            @RequestParam int age) {
+        log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-v4")
+    public String requestParamV4(String username, int age) { // 파라미터 이름 같으면 @RequestParam 도 생략가능
+        log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-required")
+    public String requestParamRequired(
+            @RequestParam(required = true) String username, // username 없으면 400 Bad Request 에러. (기본값이 true)
+            @RequestParam(required = false) Integer age) { // int 에 null 들어갈 수 없으니까 Integer 로 바꿨음
+        log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-default")
+    public String requestParamDefault(
+            @RequestParam(required = true, defaultValue = "guest") String username,
+            @RequestParam(required = false, defaultValue = "-1") Integer age) {
+        log.info("username={}, age={}", username, age);
+
+        return "ok";
+    }
+
 }
