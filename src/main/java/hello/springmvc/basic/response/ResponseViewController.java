@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ResponseViewController {
+public class ResponseViewController { // 타임리프 뷰 리졸버 자동 등록
 
     @RequestMapping("/response-view-v1")
     public ModelAndView responseViewV1() {
@@ -21,10 +21,14 @@ public class ResponseViewController {
         return "response/hello";
     }
 
-    // 뷰와 Url 같을 경우 생략가능. 권장하지 않음.
+    // 뷰와 Url 같고 메시지 바디를 처리하는 파라미터가 없으면 뷰 리턴 생략가능. 권장하지 않음.
     @RequestMapping("/response/hello")
     public void responseViewV3(Model model) {
         model.addAttribute("data", "hello!");
     }
+
+
+    
+
 
 }
