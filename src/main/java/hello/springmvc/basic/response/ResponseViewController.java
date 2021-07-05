@@ -27,8 +27,4 @@ public class ResponseViewController { // 타임리프 뷰 리졸버 자동 등�
         model.addAttribute("data", "hello!");
     }
 
-
-    
-
-
 }
